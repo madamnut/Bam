@@ -1883,6 +1883,13 @@ MonoBehaviour:
   - {fileID: 670904459}
   - {fileID: 1893087089}
   - {fileID: 817592519}
+  bgmClip: {fileID: 8300000, guid: b396ad87e7ecaf246be4d7dff65095d5, type: 3}
+  pauseSFX: {fileID: 8300000, guid: cc1510647904f9442a240da85e524ccd, type: 3}
+  unpauseSFX: {fileID: 8300000, guid: c49d67545f576e44cb1745f17be36e98, type: 3}
+  gameOverSFX: {fileID: 8300000, guid: 86f40841edf25b34fb5d0fcadb3feafb, type: 3}
+  appleEatSFX: {fileID: 8300000, guid: d7a1269e2b72a7a4db6b969a3962e7cf, type: 3}
+  gameOverVolume: 0.335
+  appleEatVolume: 1
   initialInterval: 0.1
   minimumInterval: 0.03
 --- !u!1 &1656161093

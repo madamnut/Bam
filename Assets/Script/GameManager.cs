@@ -16,6 +16,19 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverCanvas;
     public Text[] scoreTexts;
 
+    [Header("Audio Clips")]
+    public AudioClip bgmClip;
+    public AudioClip pauseSFX;
+    public AudioClip unpauseSFX;
+    public AudioClip gameOverSFX;
+    public AudioClip appleEatSFX;
+
+    [Header("Audio Settings")]
+    [Range(0f, 1f)] public float gameOverVolume = .6f;
+    [Range(0f, 1f)] public float appleEatVolume = 1f;
+
+    private AudioSource audioSource;
+
     private Vector2 direction = Vector2.right;
     private Vector3 headPosition;
     private GameObject head;
@@ -42,6 +55,14 @@ public class GameManager : MonoBehaviour
 
         pauseCanvas.SetActive(false);
         gameOverCanvas.SetActive(false);
+        
+        audioSource = gameObject.AddComponent<AudioSource>();
+        if (bgmClip != null)
+        {
+            audioSource.clip = bgmClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
     }
 
     void Update()
@@ -119,8 +140,6 @@ public class GameManager : MonoBehaviour
     {
         GameObject segment = Instantiate(tailPrefab, positions[positions.Count - 1], Quaternion.identity);
         tailSegments.Add(segment);
-
-        Debug.Log("점수 획득! 현재 점수: " + Score);
     }
 
     void CheckCollision()
@@ -130,6 +149,9 @@ public class GameManager : MonoBehaviour
 
         if (headPosition == apple.transform.position)
         {
+            if (audioSource != null && appleEatSFX != null)
+                audioSource.PlayOneShot(appleEatSFX, appleEatVolume);
+            
             Grow();
             Destroy(apple);
             SpawnApple();
@@ -144,7 +166,9 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("Game Over! 최종 점수: " + Score);
+        if (audioSource != null && gameOverSFX != null)
+            audioSource.PlayOneShot(gameOverSFX, gameOverVolume);
+
         Time.timeScale = 0f;
         gameOverCanvas.SetActive(true);
     }
@@ -155,6 +179,12 @@ public class GameManager : MonoBehaviour
         Time.timeScale = isPaused ? 1f : 0f;
         pauseCanvas.SetActive(!isPaused);
 
-        Debug.Log(isPaused ? "게임 재개" : "게임 일시정지");
+        if (audioSource != null)
+        {
+            if (isPaused && unpauseSFX != null)
+                audioSource.PlayOneShot(unpauseSFX);
+            else if (!isPaused && pauseSFX != null)
+                audioSource.PlayOneShot(pauseSFX);
+        }
     }
 }

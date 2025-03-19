@@ -207,8 +207,8 @@ MonoBehaviour:
   character: {fileID: 1669356165}
   title: {fileID: 1134061654}
   gameSceneName: Game
-  bgmClip: {fileID: 0}
-  pressKeySound: {fileID: 0}
+  bgmClip: {fileID: 8300000, guid: c2fae7a18d24f7247bfb6f563bcecebb, type: 3}
+  pressKeySound: {fileID: 8300000, guid: 98166370a23d61b4c8371881b785dc2e, type: 3}
 --- !u!1 &59820825
 GameObject:
   m_ObjectHideFlags: 0
